@@ -31,3 +31,24 @@ The solution follows a strict layered architecture:
 ## Trade-offs
 - **Monolithic vs Microservices**: Chose monolithic for simplicity
 - **EF Core vs Dapper**: EF for rapid development, trade-off in performance
+## Security/Monitoring
+### Current Implementation
+#### Input Validation & Data Protection
+
+- Comprehensive validation on all recipe CRUD operations
+- Business rule enforcement (cooking time limits, required fields)
+- Safe string handling and null/empty value protection
+- Console-based logging across all service operations with exception tracking
+#### Production Recommendations
+##### Security Enhancements
+
+- Structured logging with sensitive data masking
+- Authentication/Authorization integration
+- Input sanitization
+
+#### Monitoring Improvements
+- Performance metrics and health check endpoints
+- Automated alerting on validation failures
+## Cost Optimization
+- Connection pooling for database connections
+- Efficient query execution plans
