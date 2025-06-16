@@ -77,7 +77,7 @@ namespace RecipeLookup.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"api/Recipe/SearchRecipes?q={Uri.EscapeDataString(searchTerm)}");
+                var response = await _httpClient.GetAsync($"api/Recipe/SearchRecipes/search?q={Uri.EscapeDataString(searchTerm)}");
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
