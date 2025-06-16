@@ -1,0 +1,108 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.recipe-card {
+    transition: transform 0.2s ease-in-out;
+    height: 100%;
+}
+
+    .recipe-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+.cooking-time {
+    background: #283618;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.dietary-tag {
+    background: #283618;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 0.75em;
+    margin: 2px;
+    display: inline-block;
+}
+
+.hero-section {
+    background:#606C38;
+    color: white;
+    padding: 3rem 0;
+}
+
+.btn-primary-custom {
+    background: #283618 ;
+    color:white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary-custom:hover {
+        transform: translateY(-1px);
+        background: #283618;
+        color:white;
+    }
+
+.search-section {
+    background: #f8f9fa;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+.bg-header-card {
+    background: #283618;
+    color: white;
+}
+.btn-outline-warning-custom {
+    border-color: #DDA15E;
+    color: #DDA15E;
+}
+    .btn-outline-warning-custom:hover {
+        border-color: #DDA15E;
+        background-color: #DDA15E;
+        color: #FEFAE0;
+    }
+
+.btn-outline-primary-custom {
+    border-color: #283618;
+    color: #283618
+}
+    .btn-outline-primary-custom:hover {
+        border-color: #283618;
+        background-color: #283618;
+        color: white;
+    }
+.btn-warning {
+    border-color: #DDA15E;
+    color: white;
+    background-color: #DDA15E;
+}
+    .btn-warning:hover {
+        border-color:#BC6C25;
+        color: white;
+        background-color: #BC6C25;
+    }

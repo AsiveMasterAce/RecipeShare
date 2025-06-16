@@ -1,0 +1,150 @@
+﻿@model RecipeLookup.Models.ViewModels.EditRecipeViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-lg">
+                <div class="card-header bg-header-card text-white d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">Edit Recipe</h4>
+                    <a href="@Url.Action("Index")" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i>Back
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="Edit" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input asp-for="Title" class="form-control" required />
+                        </div>
+
+                        <!-- Ingredients -->
+                        <div class="mb-3">
+                            <label class="form-label">Ingredients</label>
+                            <div class="input-group mb-2">
+                                <input type="text" id="ingredient-input" class="form-control" placeholder="e.g. 1 cup of sugar" />
+                                <button type="button" id="add-ingredient" class="btn btn-outline-primary-custom">Add</button>
+                            </div>
+                            <ul id="ingredient-list" class="list-group mb-2"></ul>
+                            <input type="hidden" asp-for="IngredientsText" />
+                        </div>
+
+                        <!-- Steps -->
+                        <div class="mb-3">
+                            <label class="form-label">Steps</label>
+                            <div class="input-group mb-2">
+                                <input type="text" id="step-input" class="form-control" placeholder="e.g. Preheat oven to 180°C" />
+                                <button type="button" id="add-step" class="btn btn-outline-primary-custom">Add</button>
+                            </div>
+                            <ul id="step-list" class="list-group mb-2"></ul>
+                            <input type="hidden" asp-for="StepsText" />
+                        </div>
+
+                        <!-- Cooking Time -->
+                        <div class="mb-3">
+                            <label class="form-label">Cooking Time (minutes)</label>
+                            <input asp-for="CookingTime" class="form-control" type="number" min="1" required />
+                        </div>
+
+                        <!-- Dietary Tags -->
+                        <div class="mb-3">
+                            <label class="form-label">Dietary Tags</label>
+                            <div class="input-group mb-2">
+                                <input type="text" id="tag-input" class="form-control" placeholder="e.g. Gluten-Free, Vegan" />
+                                <button type="button" id="add-tag" class="btn btn-outline-primary-custom">Add</button>
+                            </div>
+                            <ul id="tag-list" class="list-group mb-2"></ul>
+                            <input type="hidden" asp-for="DietaryTagsText" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-custom"><i class="fa-solid fa-plus"></i>Update Recipe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+         $(document).ready(function(){
+
+             initializeListFromHidden('#IngredientsText', '#ingredient-list', '#IngredientsText');
+             initializeListFromHidden('#StepsText', '#step-list', '#StepsText');
+             initializeListFromHidden('#DietaryTagsText', '#tag-list', '#DietaryTagsText');
+
+             // Add buttons
+         $('#add-ingredient').click(function () {
+               addItem('#ingredient-input', '#ingredient-list', '#IngredientsText');
+         });
+
+          $('#add-step').click(function () {
+               addItem('#step-input', '#step-list', '#StepsText');
+          });
+        
+          $('#add-tag').click(function () {
+               addItem('#tag-input', '#tag-list', '#DietaryTagsText');
+          });
+        });
+
+
+        function addItem(inputSelector, listSelector, hiddenFieldSelector) {
+              var value = $(inputSelector).val().trim();
+              if (value) {
+                  const li = $('<li>').addClass("list-group-item d-flex justify-content-between align-items-center");
+                  li.text(value);
+
+                  const removeBtn = $('<button>')
+                      .addClass('btn btn-sm btn-danger')
+                      .html('&times;')
+                      .click(function () {
+                          li.remove();
+                          updateHiddenField(listSelector, hiddenFieldSelector);
+                      });
+
+                  li.append(removeBtn);
+                  $(listSelector).append(li);
+                  $(inputSelector).val('');
+                  updateHiddenField(listSelector, hiddenFieldSelector);
+              }
+          }
+
+          function updateHiddenField(listSelector, hiddenFieldSelector) {
+              var items = [];
+              $(listSelector).children('li').each(function () {
+                  items.push($(this).contents().get(0).nodeValue.trim());
+              });
+              $(hiddenFieldSelector).val(items.join('\n'));
+          }
+
+          function initializeListFromHidden(hiddenSelector, listSelector, hiddenFieldSelector) {
+              var items = $(hiddenSelector).val().split('\n');
+              for (const item of items) {
+                  if (item.trim()) {
+                      const li = $('<li>').addClass("list-group-item d-flex justify-content-between align-items-center");
+                      li.text(item);
+
+                      const removeBtn = $('<button>')
+                          .addClass('btn btn-sm btn-danger')
+                          .html('&times;')
+                          .click(function () {
+                              li.remove();
+                              updateHiddenField(listSelector, hiddenFieldSelector);
+                          });
+
+                      li.append(removeBtn);
+                      $(listSelector).append(li);
+                  }
+              }
+          }
+    </script>
+}
