@@ -17,6 +17,10 @@ Brief description of the recipe sharing application
 5. Start the API and MVC projects
 ## 500 sequential calls To Get Recipes average latency
 I made use of the Stopwatch and this is what recorded
+**Test Environment:**
+- OS: Windows 11
+- .NET: 8.0
+- Database: SQL Server LocalDB
 ![image](https://github.com/user-attachments/assets/ce9013c3-f176-4bc6-8b1f-c0615a04fe71)
 
 
